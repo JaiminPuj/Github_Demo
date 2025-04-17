@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 jobs:
   LogintodockerhubDEV:
     runs-on: ubuntu-latest
@@ -16,21 +17,17 @@ jobs:
     - name: docker login
       uses: docker/login-action@v2.1.0
       with:
+       registry: registry-1.docker.io
        username: ${{secrets.DOCKERHUBUSERNAME}}
        password: ${{secrets.DOCKERHUBPASSWORD}}
-    - name: Docker Pull
-      run: docker pull hello-world
-    - name: Docker Tag
-      run: docker tag hello-world neeharikarn9/hello-world
-    - name: Docker Push
-      run: docker push neeharikarn9/hello-world
-  Logintodockerhubtest:
+  LogintodockerhubQA:
     runs-on: ubuntu-latest
-    environment: test
+    environment: QA
     steps:
     - uses: actions/checkout@v3
     - name: docker login
       uses: docker/login-action@v2.1.0
       with:
+       registry: registry-1.docker.io
        username: ${{secrets.DOCKERHUBUSERNAME}}
        password: ${{secrets.DOCKERHUBPASSWORD}}
